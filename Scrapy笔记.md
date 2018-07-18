@@ -9,3 +9,5 @@
 5. 获取response的返回结果时，使用response.text,使用response.body得到的结果会出现中文乱码
 
 6. 由于数据库使用的是MongoDB，所以在定义item时候，要定义_id字段，否则会提示不支持_id字段
+
+7. 向回调函数传参：通过request.meta['item'] = item 

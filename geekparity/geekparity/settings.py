@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'geekparity.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'geekparity (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -39,10 +39,14 @@ ROBOTSTXT_OBEY = False
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  'Connection': 'keep-alive',
+   'Accept-Encoding': 'gzip, deflate, br',
+   'Accept-Language': 'zh-CN,zh;q=0.9',
+   'content-type': 'application/x-www-form-urlencoded',
+   'Referer': 'https://youpin.mi.com/',
+   'If-None-Match': 'W/"5b45a0d4-b24"',
+}
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html

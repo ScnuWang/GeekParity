@@ -44,13 +44,13 @@ class WangyiSpider(scrapy.Spider):
         project_data = json.loads(json_data)['item']
         project = ProjectItem()
         original_id = str(response.url.split('=')[1])
-        project['originalId'] = original_id
+        project['original_id'] = original_id
         project['project_name'] = project_data['name']
         project['project_price'] = project_data['counterPrice']
         project['project_url'] = response.url
         project['project_desc'] = project_data['simpleDesc']
         project['project_picUrl'] = project_data['primaryPicUrl']
-        project['project_seller'] = '网易自营'
+        project['project_platform'] = '网易严选'
         project['project_score'] = json.loads(json_data)['commentGoodRates']
         yield project
         # print("==================>", project)

@@ -12,7 +12,7 @@ class ProjectItem(scrapy.Item):
     # MongoDB主键
     _id = scrapy.Field()
     # 原始产品编号
-    originalId = scrapy.Field()
+    original_id = scrapy.Field()
     # 一级分类编号
     # category_id = scrapy.Field()
     # 二级分类编号
@@ -26,7 +26,7 @@ class ProjectItem(scrapy.Item):
     # 产品简介
     project_desc = scrapy.Field()
     # 产品销售商
-    project_seller = scrapy.Field()
+    project_platform = scrapy.Field()
     # 产品评分
     project_score = scrapy.Field()
     # 产品图片
