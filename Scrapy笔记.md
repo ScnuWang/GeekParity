@@ -11,3 +11,11 @@
 6. 由于数据库使用的是MongoDB，所以在定义item时候，要定义_id字段，否则会提示不支持_id字段
 
 7. 向回调函数传参：通过request.meta['item'] = item 
+
+8. 在整个解析过程中，只需要返回一次item，pipeline就能接收到，但是yield item之后，后续对item的操作将对pipeline无效
+
+9. 给回调函数传参的两种方式：
+    - meta['key'] = value,取值 response.meta['key']
+    - callback = lambda response : self.callback_def(response,args)
+    
+10. 异常1： 使用lambda传参，会出现，gid 与响应结果数据的gid不一样， 暂不知道原因？
