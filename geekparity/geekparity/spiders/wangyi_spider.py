@@ -7,7 +7,25 @@ class WangyiSpider(scrapy.Spider):
     name = 'wangyi'
     start_urls=[
         # 居家大分类
-        'http://you.163.com/item/list?categoryId=1005000&_stat_area=nav_2&_stat_referer=index',
+        'http://you.163.com/item/list?categoryId=1005000',
+        # 鞋包配饰
+        'http://you.163.com/item/list?categoryId=1008000',
+        # 服饰
+        'http://you.163.com/item/list?categoryId=1010000',
+        # 电器
+        'http://you.163.com/item/list?categoryId=1043000',
+        # 洗护
+        'http://you.163.com/item/list?categoryId=1013001',
+        # 饮食
+        'http://you.163.com/item/list?categoryId=1005002',
+        # 餐厨
+        'http://you.163.com/item/list?categoryId=1005001',
+        # 婴童
+        'http://you.163.com/item/list?categoryId=1011000',
+        # 文体
+        'http://you.163.com/item/list?categoryId=1019000',
+        # 特色区
+        'http://you.163.com/item/list?categoryId=1065000',
     ]
 
     def parse(self, response):

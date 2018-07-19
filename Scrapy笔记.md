@@ -19,3 +19,7 @@
     - callback = lambda response : self.callback_def(response,args)
     
 10. 异常1： 使用lambda传参，会出现，gid 与响应结果数据的gid不一样， 暂不知道原因？
+
+11. 异常2： pymongo.errors.AutoReconnect: localhost:27017: [WinError 10048] 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+
+12. 默认json.loads不能处理单引号的json字符串，可通过先json.loads(json.dumps(json_str))
