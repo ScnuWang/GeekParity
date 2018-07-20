@@ -77,11 +77,13 @@ class WangyiSpider(scrapy.Spider):
         # 评论地址
         project_comment_url = 'http://you.163.com/xhr/comment/listByItemByTag.json?itemId='+original_id+'&tag=%E5%85%A8%E9%83%A8&size=30&page=1&orderBy=0'
         totalPage = json.loads(requests.get(project_comment_url).text)['data']['pagination']['totalPage']
+        # 限定最多抓取120条
+        if totalPage > 5 : totalPage = 5
         for page_num in range(1,totalPage):
             comment_url = 'http://you.163.com/xhr/comment/listByItemByTag.json?itemId='+original_id+'&tag=%E5%85%A8%E9%83%A8&size=30&page='+str(page_num)+'&orderBy=0'
             yield scrapy.Request(comment_url, callback=self.parse_comment)
 
-    # 解析评论数据，有可能没有评论，有可能评论很多，有些达到几万条
+    # 解析评论数据，有可能没有评论，有可能评论很多，有些达到几万条，而且不可能每次都抓取全部，所以，抓取前120条就够了
     def parse_comment(self,response):
         comment_data = json.loads(response.text)['data']['result']
         for comment in comment_data:
