@@ -7,7 +7,7 @@
 
 import scrapy
 
-
+# 产品数据
 class ProjectItem(scrapy.Item):
     # MongoDB主键
     _id = scrapy.Field()
@@ -31,3 +31,21 @@ class ProjectItem(scrapy.Item):
     project_score = scrapy.Field()
     # 产品图片
     project_picUrl = scrapy.Field()
+    # 更新时间
+    last_updated = scrapy.Field(serializer=str)
+
+# 产品评论数据
+class CommentItem(scrapy.Item):
+    _id = scrapy.Field()
+    # 产品归属平台  (网易：1；小米：2)
+    website_id = scrapy.Field()
+    # 产品编号
+    project_id = scrapy.Field()
+    # 评论人
+    comment_user = scrapy.Field()
+    # 产品评论
+    comment_content = scrapy.Field()
+    # 评论时间
+    comment_time = scrapy.Field()
+    # 更新时间
+    last_updated = scrapy.Field(serializer=str)
