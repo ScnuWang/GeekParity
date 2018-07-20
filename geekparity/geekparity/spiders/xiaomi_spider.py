@@ -51,10 +51,10 @@ class XiaomiSpider(scrapy.Spider):
 
             # 注意这里处理参数传递的方式使用lambda传递 获取产品评分
             return FormRequest(url='https://youpin.mi.com/app/shopv3/pipe', method='POST', body=encode_body,callback=self.parse_comment,meta={'project':project})
-        except Exception:
+        except KeyError : pass
+        else:
             print("产品出现异常：==============", gid)
             # 商品已下架  100860   102626   101568
-            raise
 
     def parse_comment(self,response):
         project = response.meta['project']

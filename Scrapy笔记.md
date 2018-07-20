@@ -17,6 +17,9 @@
 9. 给回调函数传参的两种方式：
     - meta['key'] = value,取值 response.meta['key']
     - callback = lambda response : self.callback_def(response,args)
+    > lambda表达式，通常是在需要一个函数，但是又不想费神去命名一个函数的场合下使用，也就是指匿名函数。
+    
+    > Python允许你定义一种单行的小函数。定义lambda函数的形式如下（lambda参数：表达式）lambda函数默认返回表达式的值。你也可以将其赋值给一个变量。lambda函数可以接受任意个参数，包括可选参数，但是表达式只有一个。
     
 10. 异常1： 使用lambda传参，会出现，gid 与响应结果数据的gid不一样， 暂不知道原因？
 

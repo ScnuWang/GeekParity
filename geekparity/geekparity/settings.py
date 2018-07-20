@@ -95,3 +95,5 @@ ITEM_PIPELINES = {
 
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
+
+COMMANDS_MODULE = 'geekparity.commands'
