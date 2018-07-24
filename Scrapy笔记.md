@@ -28,3 +28,5 @@
 12. 默认json.loads不能处理单引号的json字符串，可通过先json.loads(json.dumps(json_str))
 
 13. 写一个装饰器，被装饰的函数捕捉KeyError异常，处理方式为pass或者打印异常项目信息
+
+14. scrapy默认的抓取任务开始结束时间是采用的标准UTC时区的时间，可通过修改scrapy/extensions/corestats.py中的spider_opened和spider_closed方法设置本地时间，但是这样不太好，直接修改框架的源码了，没有可移植性。

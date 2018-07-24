@@ -1,5 +1,5 @@
 import scrapy,json,requests,time
-from scrapy.loader import ItemLoader
+from geekparity.utils.KeyErrorDecorator import keyError
 from geekparity.items import ProjectItem,CommentItem
 
 class WangyiSpider(scrapy.Spider):
@@ -27,7 +27,7 @@ class WangyiSpider(scrapy.Spider):
         # 特色区
         'http://you.163.com/item/list?categoryId=1065000',
     ]
-
+    @keyError
     def parse(self, response):
         result = str(response.text)
 
@@ -53,6 +53,7 @@ class WangyiSpider(scrapy.Spider):
                 # 这里如果不添加yield关键字，回调parse_project方法失败
                 yield scrapy.Request(project_url,callback=self.parse_project)
 
+    @keyError
     def parse_project(self,response):
         result = str(response.text)
         # print("------------------>", result)
@@ -85,6 +86,7 @@ class WangyiSpider(scrapy.Spider):
             yield scrapy.Request(comment_url, callback=self.parse_comment)
 
     # 解析评论数据，有可能没有评论，有可能评论很多，有些达到几万条，而且不可能每次都抓取全部，所以，抓取前120条就够了
+    @keyError
     def parse_comment(self,response):
         comment_data = json.loads(response.text)['data']['result']
         for comment in comment_data:

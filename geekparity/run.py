@@ -1,28 +1,26 @@
-from twisted.internet import reactor
-from scrapy.crawler import CrawlerRunner
-from scrapy.utils.log import configure_logging
+import multiprocessing
+
+from apscheduler.schedulers.blocking import BlockingScheduler
+from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from geekparity.spiders.xiaomi_spider import XiaomiSpider
 from geekparity.spiders.wangyi_spider import WangyiSpider
 
-from apscheduler.schedulers.twisted import TwistedScheduler
+sched = BlockingScheduler()
 
-configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
+def crawl():
+    process = CrawlerProcess(get_project_settings())
+    process.crawl(XiaomiSpider)
+    process.crawl(WangyiSpider)
+    process.start()
 
-def crawlxiaomi():
-    runner = CrawlerRunner(get_project_settings())
-    runner.crawl(XiaomiSpider)
-    runner.crawl(WangyiSpider)
-    d = runner.join()
-    d.addBoth(lambda _: reactor.stop())
+@sched.scheduled_job("interval",seconds=60*15)
+def run():
+    process = multiprocessing.Process(target=crawl)
+    process.start()
 
 
 if __name__ == '__main__':
-    sched = TwistedScheduler()
-    sched.add_job(crawlxiaomi,'cron',hour=11,minute=30)
     sched.start()
 
-    try:
-        reactor.run()
-    except Exception:
-        pass
+
