@@ -19,7 +19,7 @@ def crawlxiaomi():
 
 if __name__ == '__main__':
     sched = TwistedScheduler()
-    sched.add_job(crawlxiaomi,'cron',hour=17,minute=25)
+    sched.add_job(crawlxiaomi,'cron',hour=11,minute=30)
     sched.start()
 
     try:

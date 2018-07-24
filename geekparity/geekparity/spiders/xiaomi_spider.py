@@ -1,6 +1,6 @@
-import scrapy,json,urllib
+import scrapy,json,urllib,time
 from scrapy.http import FormRequest
-from geekparity.items import ProjectItem
+from geekparity.items import ProjectItem,CommentItem
 
 class XiaomiSpider(scrapy.Spider):
     name = 'xiaomi'
@@ -40,6 +40,7 @@ class XiaomiSpider(scrapy.Spider):
             project = ProjectItem()
             # gid = str(response.meta['gid'])
             project['original_id'] = gid
+            project['website_id'] = 2
             project['project_name'] = good['name']
             project['project_price'] = int(good['market_price']) * 0.01
             project['project_url'] = 'https://youpin.mi.com/detail?gid='+gid
@@ -58,5 +59,17 @@ class XiaomiSpider(scrapy.Spider):
 
     def parse_comment(self,response):
         project = response.meta['project']
-        project['project_score'] = json.loads(response.text)['result']['overView']['data']['positive_rate']
-        return project
+        result = json.loads(response.text)['result']
+        project['project_score'] = result['overView']['data']['positive_rate']
+        project['last_updated'] = time.strftime('%Y-%m-%d %X')
+        yield project
+        comments_data = result['list']['data']
+        for comment in comments_data:
+            comment_item = CommentItem()
+            comment_item['website_id'] = 2
+            comment_item['project_id'] = project['original_id']
+            comment_item['comment_user'] = comment['nick_name']
+            comment_item['comment_content'] = comment['txt']
+            comment_item['comment_time'] = comment['ctime']
+            comment_item['last_updated'] = time.strftime('%Y-%m-%d %X')
+            yield comment_item

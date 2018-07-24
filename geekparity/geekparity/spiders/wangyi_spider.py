@@ -1,7 +1,7 @@
-import scrapy,json,requests
+import scrapy,json,requests,time
 from scrapy.loader import ItemLoader
 from geekparity.items import ProjectItem,CommentItem
-from datetime import datetime
+
 class WangyiSpider(scrapy.Spider):
     # 运行时调用这个name的值
     name = 'wangyi'
@@ -63,6 +63,7 @@ class WangyiSpider(scrapy.Spider):
         project = ProjectItem()
         original_id = str(response.url.split('=')[1])
         project['original_id'] = original_id
+        project['website_id'] = 2
         project['project_name'] = project_data['name']
         project['project_price'] = project_data['counterPrice']
         project['project_url'] = response.url
@@ -70,7 +71,7 @@ class WangyiSpider(scrapy.Spider):
         project['project_picUrl'] = project_data['primaryPicUrl']
         project['project_platform'] = '网易严选'
         project['project_score'] = json.loads(json_data)['commentGoodRates']
-        project['last_updated'] = datetime.now()
+        project['last_updated'] = time.strftime('%Y-%m-%d %X')
         yield project
         # print("==================>", project)
         # 处理评论列表
@@ -93,5 +94,5 @@ class WangyiSpider(scrapy.Spider):
             comment_item['comment_user'] = comment['frontUserName']
             comment_item['comment_content'] = comment['content']
             comment_item['comment_time'] = comment['createTime']
-            comment_item['last_updated'] = datetime.now()
+            comment_item['last_updated'] = time.strftime('%Y-%m-%d %X')
             yield comment_item

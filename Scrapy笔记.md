@@ -26,3 +26,5 @@
 11. 异常2： pymongo.errors.AutoReconnect: localhost:27017: [WinError 10048] 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
 
 12. 默认json.loads不能处理单引号的json字符串，可通过先json.loads(json.dumps(json_str))
+
+13. 写一个装饰器，被装饰的函数捕捉KeyError异常，处理方式为pass或者打印异常项目信息

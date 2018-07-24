@@ -13,6 +13,8 @@ class ProjectItem(scrapy.Item):
     _id = scrapy.Field()
     # 原始产品编号
     original_id = scrapy.Field()
+    # 产品归属平台  (网易：1；小米：2)
+    website_id = scrapy.Field()
     # 一级分类编号
     # category_id = scrapy.Field()
     # 二级分类编号
