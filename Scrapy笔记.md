@@ -30,3 +30,5 @@
 13. 写一个装饰器，被装饰的函数捕捉KeyError异常，处理方式为pass或者打印异常项目信息
 
 14. scrapy默认的抓取任务开始结束时间是采用的标准UTC时区的时间，可通过修改scrapy/extensions/corestats.py中的spider_opened和spider_closed方法设置本地时间，但是这样不太好，直接修改框架的源码了，没有可移植性。
+
+15. 如果CrawlerProcess处理多个spider，某一个出现问题那就需要检查这个spider单独执行是否有问题

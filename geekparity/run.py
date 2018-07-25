@@ -14,7 +14,7 @@ def crawl():
     process.crawl(WangyiSpider)
     process.start()
 
-@sched.scheduled_job("interval",seconds=60*15)
+@sched.scheduled_job("interval",seconds=15*60)
 def run():
     process = multiprocessing.Process(target=crawl)
     process.start()
