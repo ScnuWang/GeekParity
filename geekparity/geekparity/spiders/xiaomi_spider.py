@@ -40,7 +40,7 @@ class XiaomiSpider(scrapy.Spider):
             project = ProjectItem()
             # gid = str(response.meta['gid'])
             project['original_id'] = gid
-            project['website_id'] = 2
+            project['website_id'] = 1
             project['project_name'] = good['name']
             project['project_price'] = int(good['market_price']) * 0.01
             project['project_url'] = 'https://youpin.mi.com/detail?gid='+gid
@@ -66,7 +66,7 @@ class XiaomiSpider(scrapy.Spider):
         comments_data = result['list']['data']
         for comment in comments_data:
             comment_item = CommentItem()
-            comment_item['website_id'] = 2
+            comment_item['website_id'] = 1
             comment_item['project_id'] = project['original_id']
             comment_item['comment_user'] = comment['nick_name']
             comment_item['comment_content'] = comment['txt']

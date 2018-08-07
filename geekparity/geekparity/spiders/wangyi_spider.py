@@ -91,7 +91,7 @@ class WangyiSpider(scrapy.Spider):
         comment_data = json.loads(response.text)['data']['result']
         for comment in comment_data:
             comment_item = CommentItem()
-            comment_item['website_id'] = 1
+            comment_item['website_id'] = 2
             comment_item['project_id'] = comment['itemId']
             comment_item['comment_user'] = comment['frontUserName']
             comment_item['comment_content'] = comment['content']

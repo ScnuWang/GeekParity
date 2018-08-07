@@ -39,7 +39,7 @@ class ProjectItem(scrapy.Item):
 # 产品评论数据
 class CommentItem(scrapy.Item):
     _id = scrapy.Field()
-    # 产品归属平台  (网易：1；小米：2)
+    # 产品归属平台  (小米：1；网易：2)
     website_id = scrapy.Field()
     # 产品编号
     project_id = scrapy.Field()

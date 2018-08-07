@@ -20,10 +20,11 @@ class GeekparityPipeline(object):
         client = self.client
         db = None
         collection = None
-        if isinstance(spider,WangyiSpider):
-            db = client.wangyi
-        elif isinstance(spider,XiaomiSpider):
-            db = client.xiaomi
+        db = client.geekparity
+        # if isinstance(spider,WangyiSpider):
+        #     db = client.wangyi
+        # elif isinstance(spider,XiaomiSpider):
+        #     db = client.xiaomi
 
         if isinstance(item,ProjectItem):
             collection = db.projects
