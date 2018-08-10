@@ -42,7 +42,8 @@ class XiaomiSpider(scrapy.Spider):
             project['original_id'] = gid
             project['website_id'] = 1
             project['project_name'] = good['name']
-            project['project_price'] = int(good['market_price']) * 0.01
+            # 打折降价价格
+            project['project_price'] = int(good['price_min']) * 0.01
             project['project_url'] = 'https://youpin.mi.com/detail?gid='+gid
             project['project_desc'] = good['summary']
             project['project_picUrl'] = good['pic_url']

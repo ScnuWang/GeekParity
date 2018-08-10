@@ -92,7 +92,7 @@ class WangyiSpider(scrapy.Spider):
         for comment in comment_data:
             comment_item = CommentItem()
             comment_item['website_id'] = 2
-            comment_item['project_id'] = comment['itemId']
+            comment_item['project_id'] = str(comment['itemId'])
             comment_item['comment_user'] = comment['frontUserName']
             comment_item['comment_content'] = comment['content']
             comment_item['comment_time'] = comment['createTime']
