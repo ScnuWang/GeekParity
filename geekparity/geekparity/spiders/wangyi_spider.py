@@ -66,6 +66,10 @@ class WangyiSpider(scrapy.Spider):
         project['original_id'] = original_id
         project['website_id'] = 2
         project['project_name'] = project_data['name']
+        project['tags'] = []
+        project['tags_user'] = ['Geekview']
+        project['tags_time'] = time.strftime('%Y-%m-%d %X')
+        project['tags_status'] = 0
         project['project_price'] = project_data['counterPrice']
         project['project_url'] = response.url
         project['project_desc'] = project_data['simpleDesc']

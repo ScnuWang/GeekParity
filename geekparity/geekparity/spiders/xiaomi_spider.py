@@ -42,6 +42,11 @@ class XiaomiSpider(scrapy.Spider):
             project['original_id'] = gid
             project['website_id'] = 1
             project['project_name'] = good['name']
+            # 标签关键字放在Django里面去处理，因为这边需要经常处理，并且一个产品只需要分词一次
+            project['tags'] = []
+            project['tags_user'] = ['Geekview']
+            project['tags_time'] = time.strftime('%Y-%m-%d %X')
+            project['tags_status'] = 0
             # 打折降价价格
             project['project_price'] = int(good['price_min']) * 0.01
             project['project_url'] = 'https://youpin.mi.com/detail?gid='+gid

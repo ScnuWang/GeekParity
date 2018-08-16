@@ -21,6 +21,14 @@ class ProjectItem(scrapy.Item):
     # superCategory_id = scrapy.Field()
     # 产品名称
     project_name = scrapy.Field()
+    # 标签列表
+    tags = scrapy.Field()
+    # 设置关键字的人 默认值：Geekview
+    tags_user = scrapy.Field()
+    # 设置关键字的时间
+    tags_time = scrapy.Field(serializer=str)
+    # 关键字状态 0：未分词或分词异常 1：已分词
+    tags_status = scrapy.Field()
     # 产品价格
     project_price = scrapy.Field()
     # 产品地址
