@@ -1,7 +1,7 @@
-import scrapy,json,requests,time
+import scrapy,json,requests
 from geekparity.utils.error_decorator import parseExceptWrapper
 from geekparity.items import ProjectItem,CommentItem
-
+from datetime import datetime
 class WangyiSpider(scrapy.Spider):
     # 运行时调用这个name的值
     name = 'wangyi'
@@ -66,17 +66,17 @@ class WangyiSpider(scrapy.Spider):
         project['original_id'] = original_id
         project['website_id'] = 2
         project['project_name'] = project_data['name']
-        project['tags'] = []
-        project['tags_user'] = ['Geekview']
-        project['tags_time'] = time.strftime('%Y-%m-%d %X')
-        project['tags_status'] = 0
         project['project_price'] = project_data['counterPrice']
         project['project_url'] = response.url
         project['project_desc'] = project_data['simpleDesc']
         project['project_picUrl'] = project_data['primaryPicUrl']
         project['project_platform'] = '网易严选'
-        project['project_score'] = json.loads(json_data)['commentGoodRates']
-        project['last_updated'] = time.strftime('%Y-%m-%d %X')
+        # 如果没有评分，默认暂无评分
+        if json.loads(json_data)['commentGoodRates']:
+            project['project_score'] = json.loads(json_data)['commentGoodRates']
+        else:
+            project['project_score'] = '暂无评分'
+        project['last_updated'] = datetime.now()
         yield project
         # print("==================>", project)
         # 处理评论列表
@@ -84,7 +84,7 @@ class WangyiSpider(scrapy.Spider):
         project_comment_url = 'http://you.163.com/xhr/comment/listByItemByTag.json?itemId='+original_id+'&tag=%E5%85%A8%E9%83%A8&size=30&page=1&orderBy=0'
         totalPage = json.loads(requests.get(project_comment_url).text)['data']['pagination']['totalPage']
         # 限定最多抓取120条
-        if totalPage > 5 : totalPage = 5
+        if totalPage > 2 : totalPage = 2
         for page_num in range(1,totalPage):
             comment_url = 'http://you.163.com/xhr/comment/listByItemByTag.json?itemId='+original_id+'&tag=%E5%85%A8%E9%83%A8&size=30&page='+str(page_num)+'&orderBy=0'
             yield scrapy.Request(comment_url, callback=self.parse_comment)
@@ -100,5 +100,5 @@ class WangyiSpider(scrapy.Spider):
             comment_item['comment_user'] = comment['frontUserName']
             comment_item['comment_content'] = comment['content']
             comment_item['comment_time'] = comment['createTime']
-            comment_item['last_updated'] = time.strftime('%Y-%m-%d %X')
+            comment_item['last_updated'] = datetime.now()
             yield comment_item

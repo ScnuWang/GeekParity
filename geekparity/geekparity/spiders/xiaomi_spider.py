@@ -1,7 +1,7 @@
-import scrapy,json,urllib,time
+import scrapy,json,urllib
 from scrapy.http import FormRequest
 from geekparity.items import ProjectItem,CommentItem
-
+from datetime import datetime
 class XiaomiSpider(scrapy.Spider):
     name = 'xiaomi'
     # start_urls = ['https://youpin.mi.com/app/shopv3/pipe',]
@@ -38,15 +38,9 @@ class XiaomiSpider(scrapy.Spider):
         try:
             good = data['good']
             project = ProjectItem()
-            # gid = str(response.meta['gid'])
             project['original_id'] = gid
             project['website_id'] = 1
             project['project_name'] = good['name']
-            # 标签关键字放在Django里面去处理，因为这边需要经常处理，并且一个产品只需要分词一次
-            project['tags'] = []
-            project['tags_user'] = ['Geekview']
-            project['tags_time'] = time.strftime('%Y-%m-%d %X')
-            project['tags_status'] = 0
             # 打折降价价格
             project['project_price'] = int(good['price_min']) * 0.01
             project['project_url'] = 'https://youpin.mi.com/detail?gid='+gid
@@ -66,8 +60,11 @@ class XiaomiSpider(scrapy.Spider):
     def parse_comment(self,response):
         project = response.meta['project']
         result = json.loads(response.text)['result']
-        project['project_score'] = result['overView']['data']['positive_rate']
-        project['last_updated'] = time.strftime('%Y-%m-%d %X')
+        if result['overView']['data']['positive_rate']:
+            project['project_score'] = str(result['overView']['data']['positive_rate'])+'%'
+        else:
+            project['project_score'] = '暂无评分'
+        project['last_updated'] = datetime.now()
         yield project
         comments_data = result['list']['data']
         for comment in comments_data:
@@ -77,5 +74,5 @@ class XiaomiSpider(scrapy.Spider):
             comment_item['comment_user'] = comment['nick_name']
             comment_item['comment_content'] = comment['txt']
             comment_item['comment_time'] = comment['ctime']
-            comment_item['last_updated'] = time.strftime('%Y-%m-%d %X')
+            comment_item['last_updated'] = datetime.now()
             yield comment_item

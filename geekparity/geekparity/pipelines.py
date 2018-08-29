@@ -18,8 +18,6 @@ class GeekparityPipeline(object):
     def process_item(self, item, spider):
         # 插入数据到MongoDB
         client = self.client
-        db = None
-        collection = None
         db = client.geekparity
         # if isinstance(spider,WangyiSpider):
         #     db = client.wangyi

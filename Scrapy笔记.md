@@ -37,3 +37,5 @@
 
 17. 定时：scrapyd
 18. 分布式：scrapy-redis
+
+19. 时间处理，如果直接存放字符串到数据库，那么在Django应用中取出的时候过滤识别不出来是datatime类型
