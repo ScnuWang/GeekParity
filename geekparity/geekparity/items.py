@@ -29,6 +29,8 @@ class ProjectItem(scrapy.Item):
     project_score = scrapy.Field()
     # 产品图片
     project_picUrl = scrapy.Field()
+    # 总评论数
+    comment_count = scrapy.Field()
     # 更新时间
     last_updated = scrapy.Field(serializer=str)
 

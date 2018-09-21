@@ -11,12 +11,12 @@ sched = BlockingScheduler()
 def crawl():
     process = CrawlerProcess(get_project_settings())
     process.crawl(XiaomiSpider)
-    process.crawl(WangyiSpider)
+    # process.crawl(WangyiSpider)
     process.start()
 
 # @sched.scheduled_job("interval",seconds=15*60)
-# @sched.scheduled_job("cron",hour='*/1')
-@sched.scheduled_job("cron",minute='*/30')
+@sched.scheduled_job("cron",hour='*/1')
+# @sched.scheduled_job("cron",minute='*/3')
 def run():
     process = multiprocessing.Process(target=crawl)
     process.start()

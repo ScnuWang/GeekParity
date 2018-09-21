@@ -97,3 +97,7 @@ MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 
 COMMANDS_MODULE = 'geekparity.commands'
+
+# LOG_LEVEL = 'INFO'
+
+FEED_EXPORT_ENCODING = 'utf-8'

@@ -64,15 +64,20 @@ class XiaomiSpider(scrapy.Spider):
             project['project_score'] = str(result['overView']['data']['positive_rate'])+'%'
         else:
             project['project_score'] = '暂无评分'
+        if result['overView']['data']['tags']:
+            project['comment_count'] = result['overView']['data']['tags'][0]['count']
+        else:
+            project['comment_count'] = 0
         project['last_updated'] = datetime.now()
         yield project
         comments_data = result['list']['data']
-        for comment in comments_data:
-            comment_item = CommentItem()
-            comment_item['website_id'] = 1
-            comment_item['project_id'] = project['original_id']
-            comment_item['comment_user'] = comment['nick_name']
-            comment_item['comment_content'] = comment['txt']
-            comment_item['comment_time'] = comment['ctime']
-            comment_item['last_updated'] = datetime.now()
-            yield comment_item
+        if comments_data :
+            for comment in comments_data :
+                comment_item = CommentItem()
+                comment_item['website_id'] = 1
+                comment_item['project_id'] = project['original_id']
+                comment_item['comment_user'] = comment['nick_name']
+                comment_item['comment_content'] = comment['txt']
+                comment_item['comment_time'] = comment['ctime']
+                comment_item['last_updated'] = datetime.now()
+                yield comment_item

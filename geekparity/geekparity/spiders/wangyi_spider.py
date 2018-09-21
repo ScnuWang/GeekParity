@@ -77,12 +77,13 @@ class WangyiSpider(scrapy.Spider):
         else:
             project['project_score'] = '暂无评分'
         project['last_updated'] = datetime.now()
-        yield project
-        # print("==================>", project)
+
         # 处理评论列表
         # 评论地址
         project_comment_url = 'http://you.163.com/xhr/comment/listByItemByTag.json?itemId='+original_id+'&tag=%E5%85%A8%E9%83%A8&size=30&page=1&orderBy=0'
         totalPage = json.loads(requests.get(project_comment_url).text)['data']['pagination']['totalPage']
+        project['comment_count'] = json.loads(requests.get(project_comment_url).text)['data']['pagination']['total']
+        yield project
         # 限定最多抓取120条
         if totalPage > 2 : totalPage = 2
         for page_num in range(1,totalPage):
